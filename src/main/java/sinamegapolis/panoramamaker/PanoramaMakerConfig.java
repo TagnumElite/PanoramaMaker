@@ -9,30 +9,54 @@
  */
 package sinamegapolis.panoramamaker;
 
-import net.minecraftforge.common.config.Config;
-import net.minecraftforge.common.config.ConfigManager;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.apache.commons.lang3.tuple.Pair;
 
-@Mod.EventBusSubscriber(modid = PanoramaMaker.MODID)
-@Config(modid = PanoramaMaker.MODID)
+import net.minecraftforge.common.ForgeConfigSpec;
+
 public class PanoramaMakerConfig {
+	public static final ClientConfig CLIENT;
+	public static final ForgeConfigSpec CLIENT_SPEC;
+	
+	static {
+		final Pair<ClientConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ClientConfig::new);
+		CLIENT = specPair.getLeft();
+		CLIENT_SPEC = specPair.getRight();
+	}
+	
+	public static boolean overrideMainMenu = true;
+	public static boolean fullscreen = false;
+	public static int panoramaSize = 256;
+	
+	public static class ClientConfig {
+		public final ForgeConfigSpec.BooleanValue overrideMainMenu;
+		public final ForgeConfigSpec.BooleanValue fullscreen;
+		public final ForgeConfigSpec.ConfigValue<Integer> panoramaSize;
 
-    @Config.RequiresMcRestart
-    @Config.Comment("Use panorama screenshots on main menu")
-    public static boolean overrideMainMenu = true;
-
-    @Config.Comment("Fullres screenshots: Take panorama screenshots without changing the render size")
-    public static boolean fullScreen = false;
-
-    @Config.Comment("Panorama Picture Resolution")
-    public static int panoramaSize = 256;
-
-    @SubscribeEvent
-    public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event){
-        if(event.getModID().equals(PanoramaMaker.MODID)){
-            ConfigManager.sync(PanoramaMaker.MODID, Config.Type.INSTANCE);
-        }
-    }
+		ClientConfig(ForgeConfigSpec.Builder builder) {
+			builder.comment("Options for the panorama maker.")
+			.push("panorama");
+			
+			overrideMainMenu = builder
+					.comment("Use panorama screenshots in the main menu")
+					.translation("text.panormamamaker.config.override_main_menu")
+					.define("overrideMainMenu", true);
+			
+			fullscreen = builder
+					.comment("Fullres screenshots: Take panorama screenshots without changing the render size")
+					.translation("text.panoramamaker.config.fullscreen")
+					.define("fullscreen", false);
+			panoramaSize = builder
+					.comment("Panorama Picture Resolution")
+					.translation("text.panoramamaker.config.panorama_size")
+					.define("panoramaSize", 256);
+			
+			builder.pop();
+		}
+	}
+	
+	public static void refreshClient() {
+		overrideMainMenu = CLIENT.overrideMainMenu.get();
+		fullscreen = CLIENT.fullscreen.get();
+		panoramaSize = CLIENT.panoramaSize.get();
+	}
 }

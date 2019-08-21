@@ -1,0 +1,8 @@
+{
+    "text.panoramamaker.config.override_main_menu": "Use panorama screenshots on the main menu.",
+    "text.panoramamaker.config.fullscreen": "Take panorama screenshots without changing the render size.",
+    "text.panoramamaker.config.panorama_size": "Panorama picture resolution.",
+    "text.panoramamaker.right_click_add": "Right-click to Add",
+    "text.panoramamaker.panorama_saved": "Saved panorama as %s",
+    "text.panoramamaker.enter_world": "It seems you have installed §a§oPanoramaMaker§f§r, a standalone version of §b§oquark§f§r's PanoramaMaker feature. So Now you can take panorama pictures (using Screenshot Key + Ctrl + Shift) and use them for main menu!"
+}

@@ -1,0 +1,30 @@
+modLoader="javafml"
+loaderVersion="[28,)"
+issueTrackerURL="https://github.com/SinaMegapolis/PanoramaMaker/issues"
+
+[[mods]]
+modId="panoramamaker"
+version="1.0.0"
+displayName="PanoramaMaker"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/panorama-maker"
+updateJSONURL="https://raw.githubusercontent.com/SinaMegapolis/PanoramaMaker/master/update-checker.json"
+credits="Vazkii and quat, for writing the code :^)"
+authors="SinaMegapolis, TagnumElite"
+description='''
+This Mod gives you the ability to take panorama (also called cubemap) screenshots in game and use them for main menus in resource packs.
+OR you can add this to your modpack so the players can take panorama screenshots of beautiful places they find in their worlds, the mod will use one of the panorama screenshot groups for main menu's background each time the player opens minecraft!
+'''
+
+[[dependencies.panoramamaker]]
+    modId="forge"
+    mandatory=true
+    versionRange="[28,)"
+    ordering="NONE"
+    side="CLIENT"
+
+[[dependencies.panoramamaker]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.14.4]"
+    ordering="NONE"
+    side="CLIENT"
